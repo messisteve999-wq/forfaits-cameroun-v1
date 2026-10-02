@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff7900">
+<meta name="description" content="Forfaits Internet Cameroun V1 — comparez les offres modem, box et Internet illimité.">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon.svg">
+<title>Forfaits Cameroun</title>
+<style>
+:root{--orange:#ff7900;--bg:#07111f;--card:#0d1b2e;--muted:#9fb0c4;--text:#f6f8fb;--line:#20324a;--green:#35d07f}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,#17345a 0,transparent 35%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;z-index:10;background:rgba(7,17,31,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1050px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800}.logo b{background:var(--orange);color:#111;padding:8px 10px;border-radius:12px}.logo span{font-size:18px}
+main{max-width:1050px;margin:auto;padding:22px 18px 50px}.hero{padding:28px 0 18px}.hero h1{font-size:clamp(30px,7vw,54px);line-height:1.02;margin:0 0 12px}.hero p{color:var(--muted);max-width:700px;font-size:17px}
+.controls{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin:18px 0}.input,.select,.btn{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#0a1728;color:var(--text);font:inherit}.btn{cursor:pointer}.btn.primary{background:var(--orange);border-color:var(--orange);color:#111;font-weight:800}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:5px}.tab{white-space:nowrap}.tab.active{outline:2px solid var(--orange)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:15px;margin-top:15px}.card{background:linear-gradient(160deg,#10223a,#0a1626);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 30px #0003}.badge{display:inline-block;background:#143a2a;color:var(--green);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800}.provider{color:#ffad67;font-size:13px;font-weight:700;margin-top:12px}.card h2{margin:7px 0}.price{font-size:27px;font-weight:900}.meta{color:var(--muted);font-size:14px}.specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.spec{background:#091525;border-radius:10px;padding:10px}.spec small{display:block;color:var(--muted)}.notice{margin-top:18px;padding:14px;border:1px solid #5b401f;background:#2b1d0e;border-radius:14px;color:#ffd8aa}.empty{padding:35px;text-align:center;color:var(--muted)}
+footer{max-width:1050px;margin:auto;padding:0 18px 30px;color:var(--muted);font-size:13px}
+@media(max-width:700px){.controls{grid-template-columns:1fr 1fr}.controls .search{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo"><b>FC</b><span>Forfaits Cameroun</span></div><button class="btn" id="installBtn" hidden>Installer</button></div></header>
+<main>
+<section class="hero">
+<h1>Internet au Cameroun,<br><span style="color:#ff9b43">sans chercher partout.</span></h1>
+<p>Compare les forfaits modem et box, trouve les offres illimitées et ouvre la source officielle avant de souscrire.</p>
+</section>
+<section class="controls">
+<input id="search" class="input search" placeholder="Rechercher : Orange, illimité, 150 Go…">
+<select id="provider" class="select"><option value="all">Tous les opérateurs</option><option>Orange Cameroun</option><option>MTN Cameroun</option><option>Camtel</option></select>
+<select id="type" class="select"><option value="all">Toutes les offres</option><option value="unlimited">Illimité</option><option value="data">Avec volume</option></select>
+</section>
+<div class="tabs">
+<button class="btn tab active" data-tab="all">Toutes</button>
+<button class="btn tab" data-tab="unlimited">🔥 Illimitées</button>
+<button class="btn tab" data-tab="box">📡 Box / Modem</button>
+</div>
+<div id="grid" class="grid"></div>
+<div class="notice"><b>Important :</b> les offres et tarifs peuvent changer. Pour une offre Orange, vérifie toujours la couverture, la compatibilité de la box et les conditions sur le site officiel avant de payer.</div>
+</main>
+<footer>V1 • Dernière vérification des données Orange : 2 octobre 2026 • Les autres opérateurs seront ajoutés dans les prochaines données de l'application.</footer>
+<script>
+const OFFERS=[
+{id:"orange-infinity-standard",provider:"Orange Cameroun",name:"Infinity Standard",type:"unlimited",category:"box",price:14900,priceText:"14 900 FCFA",data:"Illimité",speed:"Jusqu’à 4 Mbps",validity:"30 jours",url:"https://www.orange.cm/fr/forfaits-home-infinity.html"},
+{id:"orange-infinity-prestige",provider:"Orange Cameroun",name:"Infinity Prestige",type:"unlimited",category:"box",price:19900,priceText:"19 900 FCFA",data:"Illimité",speed:"Jusqu’à 8 Mbps",validity:"30 jours",url:"https://www.orange.cm/fr/forfaits-home-infinity.html"},
+{id:"orange-infinity-premium",provider:"Orange Cameroun",name:"Infinity Premium",type:"unlimited",category:"box",price:29900,priceText:"29 900 FCFA",data:"Illimité",speed:"Jusqu’à 10 Mbps",validity:"30 jours",url:"https://www.orange.cm/fr/forfaits-home-infinity.html"},
+{id:"orange-giga-mini",provider:"Orange Cameroun",name:"Giga Box Mini",type:"data",category:"box",price:15000,priceText:"À partir de 15 000 FCFA",data:"45 Go",speed:"—",validity:"Sans engagement",url:"https://www.orange.cm/fr/internet-et-fixe/offres/giga-box.html"},
+{id:"orange-giga-medium",provider:"Orange Cameroun",name:"Giga Box Medium",type:"data",category:"box",price:0,priceText:"Prix à vérifier",data:"75 Go",speed:"—",validity:"Sans engagement",url:"https://www.orange.cm/fr/internet-et-fixe/offres/giga-box.html"},
+{id:"orange-giga-heavy",provider:"Orange Cameroun",name:"Giga Box Poids Lourd",type:"data",category:"box",price:0,priceText:"Prix à vérifier",data:"150 Go",speed:"—",validity:"Sans engagement",url:"https://www.orange.cm/fr/internet-et-fixe/offres/giga-box.html"},
+{id:"orange-giga-super",provider:"Orange Cameroun",name:"Giga Box Super Poids Lourd",type:"data",category:"box",price:0,priceText:"Prix à vérifier",data:"225 Go",speed:"—",validity:"Sans engagement",url:"https://www.orange.cm/fr/internet-et-fixe/offres/giga-box.html"}
+];
+let tab="all";
+const grid=document.querySelector("#grid");
+function render(){
+ const q=document.querySelector("#search").value.toLowerCase().trim(), p=document.querySelector("#provider").value, t=document.querySelector("#type").value;
+ let list=OFFERS.filter(o=>(tab==="all"||o.type===tab||o.category===tab)&&(p==="all"||o.provider===p)&&(t==="all"||o.type===t)&&(`${o.provider} ${o.name} ${o.data} ${o.speed}`.toLowerCase().includes(q)));
+ grid.innerHTML=list.length?list.map(o=>`<article class="card">
+ ${o.type==="unlimited"?'<span class="badge">ILLIMITÉ</span>':''}
+ <div class="provider">${o.provider}</div><h2>${o.name}</h2>
+ <div class="price">${o.priceText}</div><div class="meta">${o.validity}</div>
+ <div class="specs"><div class="spec"><small>Data</small>${o.data}</div><div class="spec"><small>Débit</small>${o.speed}</div></div>
+ <a class="btn primary" style="display:block;text-align:center;text-decoration:none" href="${o.url}" target="_blank" rel="noopener">Voir l’offre officielle</a>
+ </article>`).join(""):`<div class="empty">Aucune offre ne correspond à ta recherche.</div>`;
+}
+["search","provider","type"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");tab=b.dataset.tab;render()}));
+render();
+if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
+let deferredPrompt; window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;installBtn.hidden=false});
+installBtn.onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installBtn.hidden=true}};
+</script>
+</body></html>

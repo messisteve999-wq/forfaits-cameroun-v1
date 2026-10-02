@@ -1,0 +1,9 @@
+{
+  "name": "Forfaits Cameroun",
+  "short_name": "Forfaits CM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#ff7900",
+  "description": "Comparateur de forfaits Internet au Cameroun"
+}
